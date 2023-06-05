@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Заявка на перевозку</title>
+</head>
+<body>
+<table >
+    <tr>
+        <th>Номер плана</th>
+        <th>Дата</th>
+        <th>Номер заявки</th>
+        <th>Дата заявки</th>
+        <th>Код изделия</th>
+        <th>Код маршрута</th>
+        <th>Таб. номер водителя</th>
+        <th>Дата начала перевозки</th>
+        <th>Дата окончания перевозки</th>
+    </tr>
+    <tr th:each="el : ${dp}" th:inline="text">
+        <td th:text="${el.getNumPlan()}"></td>
+        <td th:text="${el.getDatePlan()}"></td>
+        <td th:text="${el.getNumReq()}"></td>
+        <td th:text="${el.getDateReq()}"></td>
+        <td th:text="${el.getCodeIzd()}"></td>
+        <td th:text="${el.getCodeRoute()}"></td>
+        <td th:text="${el.getTabNum()}"></td>
+        <td th:text="${el.getDateStart()}"></td>
+        <td th:text="${el.getDateFinish()}"></td>
+        <td>
+            <form th:action="@{/daily/{num_req}(num_req=${el.getNumPlan()})}" th:method="delete">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
+        <td>
+            <a style="text-decoration: none; color:black" th:href="@{/daily/{num_req}/edit(num_req=${el.getNumPlan()})}">Редактировать</a>
+        </td>
+    </tr>
+</table>
+<hr> <!--линия на длину экрана-->
+<form th:object="${dp}" th:action="@{/daily}" method="get">
+    <input type="search" name="search"/>
+    <input type="submit" value="Поиск"/>
+
+    <div th:if="${search != null}" th:object="${search} ">
+        <table>
+            <tr>
+                <th>Номер плана</th>
+                <th>Дата</th>
+                <th>Номер заявки</th>
+                <th>Дата заявки</th>
+                <th>Код изделия</th>
+                <th>Код маршрута</th>
+                <th>Таб. номер водителя</th>
+                <th>Дата начала перевозки</th>
+                <th>Дата окончания перевозки</th>
+            </tr>
+            <tr>
+                <td th:text="*{getNumPlan()}"></td>
+                <td th:text="*{getDatePlan()}"></td>
+                <td th:text="*{getNumReq()}"></td>
+                <td th:text="*{getDateReq()}"></td>
+                <td th:text="*{getCodeIzd()}"></td>
+                <td th:text="*{getCodeRoute()}"></td>
+                <td th:text="*{getTabNum()}"></td>
+                <td th:text="*{getDateStart()}"></td>
+                <td th:text="*{getDateFinish()}"></td>
+            </tr>
+        </table>
+    </div>
+</form>
+<br>
+<a th:href="@{/daily/new}">Добавить запись</a>
+<a th:href="@{/}">Домой</a>
+<a th:href="@{/daily/backup}" >Сохранить данные</a>
+<a th:href="@{/daily/restore}">Восстановить данные</a>
+</body>
+</html>

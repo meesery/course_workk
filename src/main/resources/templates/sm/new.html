@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новая запись</title>
+</head>
+<body>
+<form th:object="${note}" th:action="@{/routes}" th:method="put">
+
+    <label for="auto_num">Код маршрута: </label>
+    <input type="text" id="auto_num" th:field="*{codeRoute}">
+    <br>
+    <label for="auto_name">Адрес: </label>
+    <input type="text" id="auto_name" th:field="*{addrRoute}">
+    <br>
+    <label for="load">Длина маршрута: </label>
+    <input type="text" id="load" th:field="*{lenRoute}">
+    <br>
+
+
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>

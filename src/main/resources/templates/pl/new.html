@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новая запись</title>
+</head>
+<body>
+<form th:object="${note}" th:action="@{/plist}" method="POST">
+
+    <label for="num_req">Номер путевого листа: </label>
+    <input type="text" id="num_req" th:field="*{numPl}">
+    <br>
+    <label for="date_req">Дата: </label>
+    <input type="date" id="date_req" th:field="*{datePl}">
+    <br>
+    <label for="date_spec">Вод. удостоверение: </label>
+    <input type="text" id="date_spec" th:field="*{numLic}">
+    <br>
+    <label for="price">Рег. знак: </label>
+    <input type="text" id="price" th:field="*{numAuto}">
+    <br>
+    <label for="tele">Код маршрута: </label>
+    <input type="text" id="tele" th:field="*{codeRoute}">
+    <br>
+    <label for="izd">Код иделия: </label>
+    <input type="text" id="izd" th:field="*{codeIzd}">
+    <br>
+    <label for="date1">Дата начала перевозки: </label>
+    <input type="date" id="date1" th:field="*{dateStart}">
+    <br>
+    <label for="date2">Дата окончания перевозки: </label>
+    <input type="date" id="date2" th:field="*{dateFinish}">
+    <br>
+
+
+
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>

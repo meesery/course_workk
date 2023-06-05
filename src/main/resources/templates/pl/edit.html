@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Редактирование записи</title>
+</head>
+<body>
+<form th:object="${note}" th:action="@{/request/{num_req}(num_req=${note.getNumReq()})}" th:method="patch">
+
+  <label for="num_req">Номер заявки: </label>
+  <input type="text" id="num_req" th:field="*{numReq}">
+  <br>
+  <label for="date_req">Дата: </label>
+  <input type="date" id="date_req" th:field="*{date_req}">
+  <br>
+  <label for="num_spec">Номер спецификации: </label>
+  <input type="text" id="num_spec" th:field="*{num_spec}">
+  <br>
+  <label for="date_spec">Дата спецификации: </label>
+  <input type="date" id="date_spec" th:field="*{date_spec}">
+  <br>
+  <label for="dest">Грузополучатель: </label>
+  <input type="text" id="dest" th:field="*{dest}">
+  <br>
+  <label for="price">Цена перевозки: </label>
+  <input type="text" id="price" th:field="*{price_trans}">
+  <br>
+  <label for="tele">Контактный телефон: </label>
+  <input type="text" id="tele" th:field="*{tel}">
+  <br>
+
+
+  <input type="submit" value="Изменить">
+</form>
+</body>
+</html>

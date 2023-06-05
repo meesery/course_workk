@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новая запись</title>
+</head>
+<body>
+<form th:object="${note}" th:action="@{/journ}" method="POST">
+
+    <label for="jour_num">Номер заявки: </label>
+    <input type="text" id="jour_num" th:field="*{numReq}">
+    <br>
+    <label for="date_req">Дата: </label>
+    <input type="date" id="date_req" th:field="*{dateReq}">
+    <br>
+    <label for="datePlan">Плановая дата исполнения: </label>
+    <input type="date" id="datePlan" th:field="*{datePlanl}">
+    <br>
+
+        <input type="submit" value="Добавить">
+</form>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Отчёт о маршрутах</title>
+</head>
+<body style="display: flex; justify-content: center;flex-direction: column ;text-align: center">
+<table border="1px black solid" >
+  <thead>
+  <tr>
+    <th>Код маршрута</th>
+    <th>Адрес</th>
+    <th>Длина маршрута</th>
+    <th>Количество перевозок</th>
+    <th>Общая масса перевезённого груза</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr th:each="el : ${om}" th:inline="text">
+    <td th:text="${el.getCode()}"></td>
+    <td th:text="${el.getAddr()}"></td>
+    <td th:text="${el.getProbeg()}"></td>
+    <td th:text="${el.getCount()}"></td>
+    <td th:text="${el.getSum()}"></td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<form th:action="@{/routereport}" method="get" style="display: block;">
+  <label for="month">Месяц</label>
+  <input type="text" name="month" id="month">
+  <label for="year">Год</label>
+  <input type="text" name="year" id="year">
+  <input type="submit" value="Отчёт">
+
+</form>
+<br>
+<a href="/index">Домой</a>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новая запись</title>
+</head>
+<body>
+<form th:object="${note}" th:action="@{/auto}" th:method="put">
+
+    <label for="auto_num">Номер гос. регистрации: </label>
+    <input type="text" id="auto_num" th:field="*{autoNum}">
+    <br>
+    <label for="auto_name">Марка авто: </label>
+    <input type="text" id="auto_name" th:field="*{autoMark}">
+    <br>
+    <label for="load">Грузоподъёмность: </label>
+    <input type="text" id="load" th:field="*{loadCap}">
+    <br>
+    <label for="year">Год выпуска: </label>
+    <input type="text" id="year" th:field="*{yearProd}">
+    <br>
+    <label for="first">Первичная стоимость: </label>
+    <input type="text" id="first" th:field="*{firstCost}">
+    <br>
+    <label for="codeAm">Код амортизации: </label>
+    <input type="text" id="codeAm" th:field="*{codeAm}">
+    <br>
+    <label for="perc">Процент: </label>
+    <input type="text" id="perc" th:field="*{percAm}">
+    <br>
+    <label for="srok">Срок использования: </label>
+    <input type="text" id="srok" th:field="*{srokIsp}">
+    <br>
+
+
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>

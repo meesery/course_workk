@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование записи</title>
+</head>
+<body>
+
+<form th:object="${note}" th:action="@{/drivers/{tab_num}(tab_num=${note.getTabNum()})}" th:method="patch">
+
+    <label for="tab_num">Табельный номер: </label>
+    <input type="text" id="tab_num" th:field="*{tabNum}">
+    <br>
+    <label for="name">ФИО: </label>
+    <input type="text" id="name" th:field="*{fio}">
+    <br>
+    <label for="date1">Дата рождения: </label>
+    <input type="date" id="date1" th:field="*{dateOfBirth}">
+    <br>
+    <label for="date2">Дата выдачи удостоверения: </label>
+    <input type="date" id="date2" th:field="*{dateOfDrLic}">
+    <br>
+    <label for="date3">Срок действия удостоверения: </label>
+    <input type="date" id="date3" th:field="*{dateOfValid}">
+    <br>
+    <label for="passNum">Номер паспорта: </label>
+    <input type="text" id="passNum" th:field="*{passNum}">
+    <br>
+    <label for="cat">Категория: </label>
+    <input type="text" id="cat" th:field="*{driverCat}">
+    <br>
+    <label for="lic">Номер удостоверения: </label>
+    <input type="text" id="lic" th:field="*{licNum}">
+
+    <input type="submit" value="Изменить" th:onclick="alert('Запись изменена!')">
+
+
+</form>
+</body>
+</html>

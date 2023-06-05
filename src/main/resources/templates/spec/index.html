@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cпецификация на груз</title>
+</head>
+<body>
+<div class="table-wrapper">
+    <table class="fl-table">
+    <tr>
+        
+        <th>Номер спецификации</th>
+        <th>Дата</th>
+        <th>Код изделия</th>
+        <th>Наименование</th>
+        <th>Ед. изм.</th>
+        <th>Вес</th>
+        <th>Объём</th>
+        <th>Цена за ед.</th>
+        <th>Количество</th>
+        <th>Код маршрута</th>
+        <th>Полная цена</th>
+    </tr>
+    <tr th:each="el : ${spec}" th:inline="text">
+        <td th:text="${el.getNumSpec()}"></td>
+        <td th:text="${el.getDateSpec()}"></td>
+        <td th:text="${el.getCodeIzd()}"></td>
+        <td th:text="${el.getNameIzd()}"></td>
+        <td th:text="${el.getEdIzm()}"></td>
+        <td th:text="${el.getWeightIzd()}"></td>
+        <td th:text="${el.getVolumeIzd()}"></td>
+        <td th:text="${el.getPriceIzd()}"></td>
+        <td th:text="${el.getAmount()}"></td>
+        <td th:text="${el.getCodeRoute()}"></td>
+        <td th:text="${el.getFullPrice()}"></td>
+        <td>
+            <form th:action="@{/specif/{code}(code=${el.getNumSpec()})}" th:method="delete">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
+        <td>
+            <a style="text-decoration: none; color:black" th:href="@{/specif/{code}/edit(code=${el.getNumSpec()})}">Редактировать</a>
+        </td>
+    </tr>
+</table>
+</div>
+<hr> <!--линия на длину экрана-->
+<form th:object="${spec}" th:action="@{/specif}" method="get">
+    <input type="search" name="search"/>
+    <input type="submit" value="Поиск"/>
+
+    <div th:if="${search != null}" th:object="${search} ">
+        <table>
+            <tr>
+                <th>Номер спецификации</th>
+                <th>Дата</th>
+                <th>Код изделия</th>
+                <th>Наименование</th>
+                <th>Ед. изм.</th>
+                <th>Вес</th>
+                <th>Объём</th>
+                <th>Цена за ед.</th>
+                <th>Количество</th>
+                <th>Код маршрута</th>
+                <th>Полная цена</th>
+            </tr>
+            <tr>
+                <td th:text="*{getNumSpec()}"></td>
+                <td th:text="*{getDateSpec()}"></td>
+                <td th:text="*{getCodeIzd()}"></td>
+                <td th:text="*{getNameIzd()}"></td>
+                <td th:text="*{getEdIzm()}"></td>
+                <td th:text="*{getWeightIzd()}"></td>
+                <td th:text="*{getVolumeIzd()}"></td>
+                <td th:text="*{getPriceIzd()}"></td>
+                <td th:text="*{getAmount()}"></td>
+                <td th:text="*{getCodeRoute()}"></td>
+                <td th:text="*{getFullPrice()}"></td>
+            </tr>
+        </table>
+    </div>
+</form>
+<br>
+<a th:href="@{/specif/new}">Добавить запись</a>
+<a th:href="@{/}">Домой</a>
+<a th:href="@{/specif/backup}" >Сохранить данные</a>
+<a th:href="@{/specif/restore}">Восстановить данные</a>
+</body>
+</html>

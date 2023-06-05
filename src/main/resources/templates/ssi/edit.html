@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование записи</title>
+</head>
+<body>
+<form th:object="${note}" th:action="@{/stroyizd/{code_izd}(code_izd=${note.getCodeIzd()})}" th:method="patch">
+
+    <label for="code_izd">Код изделия: </label>
+    <input type="text" id="code_izd" th:field="*{codeIzd}">
+    <br>
+    <label for="name">Название изделия: </label>
+    <input type="text" id="name" th:field="*{nameIzd}">
+    <br>
+    <label for="edizm">Единица измерения: </label>
+    <input type="text" id="edizm" th:field="*{edIzm}">
+    <br>
+    <label for="price">Цена за единицу: </label>
+    <input type="text" id="price" th:field="*{priceIzd}">
+    <br>
+    <label for="weight">Вес: </label>
+    <input type="text" id="weight" th:field="*{weightIzd}">
+    <br>
+    <label for="vol">Объём: </label>
+    <input type="text" id="vol" th:field="*{volumeIzd}">
+    <br>
+    <label for="kind">Характеристика: </label>
+    <input type="text" id="kind" th:field="*{kindIzd}">
+
+    <input type="submit" value="Изменить">
+
+
+</form>
+</body>
+</html>

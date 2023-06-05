@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Журнал заявок</title>
+</head>
+<body>
+<table >
+    <tr>
+        <th>Номер заявки</th>
+        <th>Дата</th>
+        <th>Плановая дата исп.</th>
+        <th>Контактный телефон</th>
+    </tr>
+    <tr th:each="el : ${jour}" th:inline="text">
+
+        <td th:text="${el.getNumReq()}"></td>
+        <td th:text="${el.getDateReq()}"></td>
+        <td th:text="${el.getDatePlanl()}"></td>
+        <td th:text="${el.getTel()}"></td>
+
+        <td>
+            <form th:action="@{/journ/{jour_num}(jour_num=${el.getNumReq()})}" th:method="delete">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
+        <td>
+            <a style="text-decoration: none; color:black" th:href="@{/journ/{jour_num}/edit(jour_num=${el.getNumReq()})}">Редактировать</a>
+        </td>
+    </tr>
+</table>
+<hr> <!--линия на длину экрана-->
+<form th:object="${jour}" th:action="@{/journ}" method="get">
+    <input type="search" name="search"/>
+    <input type="submit" value="Поиск"/>
+
+    <div th:if="${search != null}" th:object="${search} ">
+        <table>
+            <tr>
+                <th>Номер заявки</th>
+                <th>Дата</th>
+                <th>Плановая дата исп.</th>
+                <th>Контактный телефон</th>
+            </tr>
+            <tr>
+                <td th:text="*{getNumReq()}"></td>
+                <td th:text="*{getDateReq()}"></td>
+                <td th:text="*{getDatePlanl()}"></td>
+                <td th:text="*{getTel()}"></td>
+            </tr>
+        </table>
+    </div>
+</form>
+<br>
+<a th:href="@{/journ/new}">Добавить запись</a>
+<a th:href="@{/}">Домой</a>
+<a th:href="@{/journ/backup}" >Сохранить данные</a>
+<a th:href="@{/journ/restore}">Восстановить данные</a>
+</body>
+</html>

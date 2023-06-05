@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Справочник водителей предприятия</title>
+
+</head>
+<body>
+<script type="text/javascript" th:src="@{js/actions.js}"></script>
+<table border="solid" >
+    <tr>
+        <th>Табельный номер</th>
+        <th>ФИО</th>
+        <th>Дата рождения</th>
+        <th>Дата выдачи удостоверения</th>
+        <th>Срок действия удостоверения</th>
+        <th>Номер паспорта</th>
+        <th>Категория</th>
+        <th>Номер удостоверения</th>
+    </tr>
+    <tr th:each="el : ${sv}" th:inline="text">
+        <td th:text="${el.getTabNum()}"></td>
+        <td th:text="${el.getFio()}"></td>
+        <td th:text="${el.getDateOfBirth()}"></td>
+        <td th:text="${el.getDateOfDrLic()}"></td>
+        <td th:text="${el.getDateOfValid()}"></td>
+        <td th:text="${el.getPassNum()}"></td>
+        <td th:text="${el.getDriverCat()}"></td>
+        <td th:text="${el.getLicNum()}"></td>
+        <td>
+            <form th:action="@{/drivers/{tab_num}(tab_num=${el.getTabNum()})}" th:method="delete" onclick="deleted()" >
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
+        <td>
+            <a style="text-decoration: none; color:black" th:href="@{/drivers/{tab_num}/edit(tab_num=${el.getTabNum()})}">Редактировать</a>
+        </td>
+
+    </tr>
+</table>
+<hr> <!--линия на длину экрана-->
+<form th:object="${sv}" th:action="@{/drivers}" method="get">
+    <input type="search" name="search"/>
+    <input type="submit" value="Поиск"/>
+
+    <div th:if="${search != null}" th:object="${search} ">
+        <table>
+            <tr>
+                <th>Табельный номер</th>
+                <th>ФИО</th>
+                <th>Дата рождения</th>
+                <th>Дата выдачи удостоверения</th>
+                <th>Срок действия удостоверения</th>
+                <th>Номер паспорта</th>
+                <th>Категория</th>
+                <th>Номер удостоверения</th>
+            </tr>
+            <tr>
+                <td th:text="${search.getTabNum()}"></td>
+                <td th:text="${search.getFio()}"></td>
+                <td th:text="${search.getDateOfBirth()}"></td>
+                <td th:text="${search.getDateOfDrLic()}"></td>
+                <td th:text="${search.getDateOfValid()}"></td>
+                <td th:text="${search.getPassNum()}"></td>
+                <td th:text="${search.getDriverCat()}"></td>
+                <td th:text="${search.getLicNum()}"></td>
+            </tr>
+        </table>
+    </div>
+</form>
+<br>
+
+
+<a th:href="@{/drivers/new}">Добавить запись</a>
+<a th:href="@{/}">Домой</a>
+<a th:href="@{/drivers/backup}" onclick="backup()" >Сохранить данные</a>
+<a th:href="@{/drivers/restore}" onclick="restore()">Восстановить данные</a>
+</body>
+</html>

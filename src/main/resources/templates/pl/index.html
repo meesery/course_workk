@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Заявка на перевозку</title>
+</head>
+<body>
+<table >
+    <tr>
+        <th>Номер</th>
+        <th>Дата</th>
+        <th>Водитель</th>
+        <th>Вод. удостоверение</th>
+        <th>Автомобиль</th>
+        <th>Регистрационный знак</th>
+        <th>Адрес</th>
+        <th>Дата начала пер.</th>
+        <th>Дата окончания пер.</th>
+        <th>Вес</th>
+        <th>Пробег</th>
+    </tr>
+    <tr th:each="el : ${pl}" th:inline="text">
+        <td th:text="${el.getNumPl()}"></td>
+        <td th:text="${el.getDatePl()}"></td>
+        <td th:text="${el.getFioDriv()}"></td>
+        <td th:text="${el.getNumLic()}"></td>
+        <td th:text="${el.getMarkAuto()}"></td>
+        <td th:text="${el.getNumAuto()}"></td>
+        <td th:text="${el.getAddrRoute()}"></td>
+        <td th:text="${el.getDateStart()}"></td>
+        <td th:text="${el.getDateFinish()}"></td>
+        <td th:text="${el.getWeight()}"></td>
+        <td th:text="${el.getProbeg()}"></td>
+        <td>
+            <form th:action="@{/plist/{num_pl}(num_pl=${el.getNumPl()})}" th:method="delete">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
+        <td>
+            <a style="text-decoration: none; color:black" th:href="@{/plist/{num_pl}/edit(num_pl=${el.getNumPl()})}">Редактировать</a>
+        </td>
+    </tr>
+</table>
+<hr> <!--линия на длину экрана-->
+<form th:object="${pl}" th:action="@{/plist}" method="get">
+    <input type="search" name="search"/>
+    <input type="submit" value="Поиск"/>
+
+    <div th:if="${search != null}" th:object="${search} ">
+        <table>
+            <tr>
+                <th>Номер</th>
+                <th>Дата</th>
+                <th>Водитель</th>
+                <th>Вод. удостоверение</th>
+                <th>Автомобиль</th>
+                <th>Регистрационный знак</th>
+                <th>Адрес</th>
+                <th>Дата начала пер.</th>
+                <th>Дата окончания пер.</th>
+                <th>Вес</th>
+                <th>Пробег</th>
+            </tr>
+            <tr>
+                <td th:text="*{getNumPl()}"></td>
+                <td th:text="*{getDatePl()}"></td>
+                <td th:text="*{getFioDriv()}"></td>
+                <td th:text="*{getNumLic()}"></td>
+                <td th:text="*{getMarkAuto()}"></td>
+                <td th:text="*{getNumAuto()}"></td>
+                <td th:text="*{getAddrRoute()}"></td>
+                <td th:text="*{getDateStart()}"></td>
+                <td th:text="*{getDateFinish()}"></td>
+                <td th:text="*{getWeight()}"></td>
+                <td th:text="*{getProbeg()}"></td>
+            </tr>
+        </table>
+    </div>
+</form>
+<br>
+<a th:href="@{/plist/new}">Добавить запись</a>
+<a th:href="@{/}">Домой</a>
+<a th:href="@{/plist/backup}" >Сохранить данные</a>
+<a th:href="@{/plist/restore}">Восстановить данные</a>
+</body>
+</html>

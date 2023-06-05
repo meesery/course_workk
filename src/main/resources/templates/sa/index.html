@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Справочник автомобилей</title>
+</head>
+<body>
+
+<table border="solid" >
+    <tr>
+        <th>Номер гос. регистрации </th>
+        <th>Марка авто</th>
+        <th>Грузоподъёмность</th>
+        <th>Год выпуска</th>
+        <th>Первичная стоимость</th>
+        <th>Код амортизации</th>
+        <th>Процент</th>
+        <th>Срок использования</th>
+        <th>Остаточная стоимость</th>
+    </tr>
+    <tr th:each="el : ${sa}" th:inline="text">
+        <td th:text="${el.getAutoNum()}"></td>
+        <td th:text="${el.getAutoMark()}"></td>
+        <td th:text="${el.getLoadCap()}"></td>
+        <td th:text="${el.getYearProd()}"></td>
+        <td th:text="${el.getFirstCost()}"></td>
+        <td th:text="${el.getCodeAm()}"></td>
+        <td th:text="${el.getPercAm()}"></td>
+        <td th:text="${el.getSrokIsp()}"></td>
+        <td th:text="${el.getLastCost()}"></td>
+        <td>
+            <form th:action="@{/auto/{auto_num}(auto_num=${el.getAutoNum()})}" th:method="delete">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
+        <td>
+            <a style="text-decoration: none; color:black" th:href="@{/auto/{auto_num}/edit(auto_num=${el.getAutoNum()})}">Редактировать</a>
+        </td>
+
+    </tr>
+</table>
+<hr> <!--линия на длину экрана-->
+<form th:object="${sa}" th:action="@{/auto}" method="get">
+    <input type="search" name="search"/>
+    <input type="submit" value="Поиск"/>
+
+    <div th:if="${search != null}" th:object="${search} ">
+        <table>
+            <tr>
+                <th>Номер гос. регистрации </th>
+                <th>Марка авто</th>
+                <th>Грузоподъёмность</th>
+                <th>Год выпуска</th>
+                <th>Первичная стоимость</th>
+                <th>Код амортизации</th>
+                <th>Процент</th>
+                <th>Срок использования</th>
+                <th>Остаточная стоимость</th>
+            </tr>
+            <tr>
+                <td th:text="${search.getAutoNum()}"></td>
+                <td th:text="${search.getAutoMark()}"></td>
+                <td th:text="${search.getLoadCap()}"></td>
+                <td th:text="${search.getYearProd()}"></td>
+                <td th:text="${search.getFirstCost()}"></td>
+                <td th:text="${search.getCodeAm()}"></td>
+                <td th:text="${search.getPercAm()}"></td>
+                <td th:text="${search.getSrokIsp()}"></td>
+                <td th:text="${search.getLastCost()}"></td>
+            </tr>
+        </table>
+    </div>
+</form>
+<br>
+<a th:href="@{/auto/new}">Добавить запись</a>
+<a th:href="@{/}">Домой</a>
+<a th:href="@{/auto/backup}" >Сохранить данные</a>
+<a th:href="@{/auto/restore}">Восстановить данные</a>
+</body>
+</html>

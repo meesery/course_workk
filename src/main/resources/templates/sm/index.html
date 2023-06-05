@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Справочник маршрутов</title>
+</head>
+<body>
+
+<table border="solid" >
+    <tr>
+        <th>Код маршрута</th>
+        <th>Адрес</th>
+        <th>Длина маршрута</th>
+    </tr>
+    <tr th:each="el : ${sm}" th:inline="text">
+        <td th:text="${el.getCodeRoute()}"></td>
+        <td th:text="${el.getAddrRoute()}"></td>
+        <td th:text="${el.getLenRoute()}"></td>
+        <td>
+            <form th:action="@{/routes/{code_route}(code_route=${el.getCodeRoute()})}" th:method="delete">
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
+        <td>
+            <a style="text-decoration: none; color:black" th:href="@{/routes/{code_route}/edit(code_route=${el.getCodeRoute()})}">Редактировать</a>
+        </td>
+
+    </tr>
+</table>
+<hr> <!--линия на длину экрана-->
+<form th:object="${sm}" th:action="@{/routes}" method="get">
+    <input type="search" name="search"/>
+    <input type="submit" value="Поиск"/>
+
+    <div th:if="${search != null}" th:object="${search} ">
+        <table>
+            <tr>
+                <th>Код маршрута</th>
+                <th>Адрес</th>
+                <th>Длина маршрута</th>
+            </tr>
+            <tr>
+                <td th:text="${search.getCodeRoute()}"></td>
+                <td th:text="${search.getAddrRoute()}"></td>
+                <td th:text="${search.getLenRoute()}"></td>
+            </tr>
+        </table>
+    </div>
+</form>
+<br>
+<a th:href="@{/routes/new}">Добавить запись</a>
+<a th:href="@{/}">Домой</a>
+<a th:href="@{/routes/backup}" >Сохранить данные</a>
+<a th:href="@{/routes/restore}">Восстановить данные</a>
+</body>
+</html>

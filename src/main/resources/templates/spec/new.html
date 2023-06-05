@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новая запись</title>
+</head>
+<body>
+<form th:object="${note}" th:action="@{/specif}" method="POST">
+
+    <label for="num_spec">Номер спецификации: </label>
+    <input type="text" id="num_spec" th:field="*{numSpec}">
+    <br>
+    <label for="date_spec">Дата: </label>
+    <input type="date" id="date_spec" th:field="*{dateSpec}">
+    <br>
+    <label for="code_izd">Код изделия: </label>
+    <input type="text" id="code_izd" th:field="*{codeIzd}">
+    <br>
+    <label for="name_izd">Название изделия: </label>
+    <input type="text" id="name_izd" th:field="*{nameIzd}">
+    <br>
+    <label for="amount">Количетсво: </label>
+    <input type="text" id="amount" th:field="*{amount}">
+    <br>
+    <label for="code_route">Код маршрута: </label>
+    <input type="text" id="code_route" th:field="*{codeRoute}">
+    <br>
+
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>

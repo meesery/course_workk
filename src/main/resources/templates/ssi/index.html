@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" th:href="@{css/style.css}">
+
+    <title>Справочник строительных изделий</title>
+</head>
+<body>
+    <table >
+        <thead>
+            <tr>
+                <th>Код изделия</th>
+                <th>Наименование</th>
+                <th>Ед. изм.</th>
+                <th>Вес</th>
+                <th>Объём</th>
+                <th>Цена за ед.</th>
+                <th>Характеристика</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="el : ${ssi}" th:inline="text">
+                <td th:text="${el.getCodeIzd()}"></td>
+                <td th:text="${el.getNameIzd()}"></td>
+                <td th:text="${el.getEdIzm()}"></td>
+                <td th:text="${el.getWeightIzd()}"></td>
+                <td th:text="${el.getVolumeIzd()}"></td>
+                <td th:text="${el.getPriceIzd()}"></td>
+                <td th:text="${el.getKindIzd()}"></td>
+                <td>
+                    <form th:action="@{/stroyizd/{code}(code=${el.getCodeIzd()})}" th:method="delete">
+                        <input type="submit" value="Удалить">
+
+                    </form>
+                </td>
+                <td>
+                    <a style="text-decoration: none; color:black"
+                       th:href="@{/stroyizd/{code}/edit(code=${el.getCodeIzd()})}">Редактировать</a>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+    <hr> <!--линия на длину экрана-->
+    <form th:object="${ssi}" th:action="@{/stroyizd}" method="get">
+        <input type="search" name="search"/>
+        <input type="submit" value="Поиск"/>
+        <div th:if="${search != null}" th:object="${search} ">
+            <table>
+                <tr>
+                    <th>Код изделия</th>
+                    <th>Наименование</th>
+                    <th>Ед. изм.</th>
+                    <th>Вес</th>
+                    <th>Объём</th>
+                    <th>Цена за ед.</th>
+                    <th>Характеристика</th>
+                </tr>
+                <tr>
+                    <td th:text="${search.getCodeIzd()}"></td>
+                    <td th:text="${search.getNameIzd()}"></td>
+                    <td th:text="${search.getEdIzm()}"></td>
+                    <td th:text="${search.getWeightIzd()}"></td>
+                    <td th:text="${search.getVolumeIzd()}"></td>
+                    <td th:text="${search.getPriceIzd()}"></td>
+                    <td th:text="${search.getKindIzd()}"></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <br>
+    <a th:href="@{/stroyizd/new}">Добавить запись</a>
+    <a th:href="@{/}">Домой</a>
+<a th:href="@{/stroyizd/backup}" >Сохранить данные</a>
+<a th:href="@{/stroyizd/restore}">Восстановить данные</a>
+</body>
+</html>
